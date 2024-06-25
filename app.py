@@ -5,6 +5,8 @@ import imutils
 import os
 from pyimagesearch.transform import four_point_transform
 from PIL import Image, ImageOps
+from io import BytesIO
+import base64
 
 app = Flask(__name__)
 
@@ -64,7 +66,7 @@ def scan_image():
     # After the loop
     if screenCnt is None or not hasattr(screenCnt, '__len__') or len(screenCnt) == 0:
         cv2.imwrite('temp/warped.jpg', image)
-        return send_file('temp/warped.jpg', mimetype='image/jpeg')
+        return jsonify({'image': None})
     
     # Draw the contour (outline)
     cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
@@ -73,12 +75,16 @@ def scan_image():
     # Apply the four point transform to obtain a top-down view of the original image
     warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
     
-    # Save the warped image
-    warped_path = "temp/warped.jpg"
-    cv2.imwrite(warped_path, warped)
+    # Save the warped image temporarily in memory
+    output_path = BytesIO()
+    Image.fromarray(cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)).save(output_path, format='JPEG')
+    output_path.seek(0)
     
-    # Return the processed image
-    return send_file(warped_path, mimetype='image/jpeg')
+    # Encode the image to base64
+    encoded_image = base64.b64encode(output_path.getvalue()).decode('utf-8')
+    
+    # Return the base64-encoded image
+    return jsonify({'image': encoded_image})
 
 
 def preprocess_image(input_path, output_path):
