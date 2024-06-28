@@ -1,6 +1,6 @@
 Flask
 numpy
-opencv-python-headless
+opencv-python
 imutils
 requests
 tqdm
