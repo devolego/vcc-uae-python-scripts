@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: your-app-name
+    env: python
+    plan: free
+    buildCommand: |
+      # Install system dependencies
+      apt-get update && apt-get install -y libzbar0
+      
+      # Install Python dependencies
+      pip install -r requirements.txt
+      pip install torch --no-cache-dir
+    startCommand: python app.py
