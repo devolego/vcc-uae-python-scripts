@@ -9,3 +9,4 @@ pytesseract
 qreader
 beautifulsoup4
 pyzbar
+zbar
