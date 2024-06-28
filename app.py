@@ -1,4 +1,9 @@
 import subprocess
+
+# Run setup.sh to install zbar if it exists
+if os.path.exists("setup.sh"):
+    subprocess.run(["bash", "setup.sh"], check=True)
+
 from flask import Flask, request, jsonify, send_file
 import requests
 from bs4 import BeautifulSoup
@@ -12,10 +17,6 @@ import imutils
 from qreader import QReader
 
 app = Flask(__name__)
-
-# Run setup.sh to install zbar if it exists
-if os.path.exists("setup.sh"):
-    subprocess.run(["bash", "setup.sh"], check=True)
 
 # def generate_large_image(size_in_mb, font_size):
 #     # Start with a large canvas
