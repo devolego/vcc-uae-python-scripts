@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y libzbar0
 COPY . /app
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt && pip install torch --no-cache-dir
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install torch --no-cache-dir
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
