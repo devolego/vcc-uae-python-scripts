@@ -1,3 +1,6 @@
 flask
 pillow
 tqdm
+numpy
+opencv-python-headless
+imutils
