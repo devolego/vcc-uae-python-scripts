@@ -13,6 +13,7 @@ import base64
 import pytesseract
 from qreader import QReader
 from bs4 import BeautifulSoup
+from pyzbar.pyzbar import decode
 
 import sys
 app = Flask(__name__)
@@ -184,9 +185,9 @@ def generate_image():
     
 
 
- # If needed, specify the Tesseract executable path
-pytesseract.pytesseract.tesseract_cmd = r'Z:\tesseract\tesseract.exe'  # Windows example
-# pytesseract.pytesseract.tesseract_cmd = '/usr/local/bin/tesseract'  # macOS example
+#  # If needed, specify the Tesseract executable path
+# pytesseract.pytesseract.tesseract_cmd = r'Z:\tesseract\tesseract.exe'  # Windows example
+# # pytesseract.pytesseract.tesseract_cmd = '/usr/local/bin/tesseract'  # macOS example
 
 
 
@@ -242,8 +243,9 @@ def read_qr_code_endpoint():
     image_file.save(image_path)
 
     try:
-        qr_code = read_qr_code(image_path)
-        return jsonify({'decoded_text': qr_code})
+        qr_codes = read_qr_code(image_path)
+        decoded_texts = [obj.data.decode('utf-8') for obj in qr_codes]
+        return jsonify({'decoded_texts': decoded_texts})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     finally:
