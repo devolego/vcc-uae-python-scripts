@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 # Run setup.sh to install zbar if it exists
 if os.path.exists("setup.sh"):
@@ -8,7 +9,7 @@ from flask import Flask, request, jsonify, send_file
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
-import os
+
 from tqdm import tqdm
 import io
 from pyimagesearch.transform import four_point_transform
