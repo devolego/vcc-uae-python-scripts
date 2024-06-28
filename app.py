@@ -8,6 +8,7 @@ import io
 from pyimagesearch.transform import four_point_transform
 import cv2
 import imutils
+from qreader import QReader
 
 app = Flask(__name__)
 
@@ -175,7 +176,33 @@ def scrape():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+def read_qr_code(image_path):
+    # Create a QReader instance
+    qreader = QReader()
 
+    # Get the image
+    image = cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+
+    # Use the detect and decode function
+    decoded_text = qreader.detect_and_decode(image=image)
+
+    return decoded_text
+
+@app.route('/read_qr', methods=['POST'])
+def read_qr():
+    try:
+        if 'image' not in request.files:
+            return jsonify({"error": "No image file provided"}), 400
+
+        image_file = request.files['image']
+        image_path = os.path.join('temp', image_file.filename)
+        image_file.save(image_path)
+
+        qr_code_text = read_qr_code(image_path)
+
+        return jsonify({"decoded_text": qr_code_text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
