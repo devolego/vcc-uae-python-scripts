@@ -4,3 +4,5 @@ tqdm
 numpy
 opencv-python-headless
 imutils
+requests
+beautifulsoup4
