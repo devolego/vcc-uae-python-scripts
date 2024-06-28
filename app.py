@@ -3,8 +3,11 @@ import numpy as np
 import cv2
 import imutils
 import os
+
+import requests
+import tqdm
 from pyimagesearch.transform import four_point_transform
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageDraw, ImageFont
 from io import BytesIO
 import base64
 import pytesseract
