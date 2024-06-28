@@ -1,25 +1,15 @@
 services:
   - type: web
     name: my-service
-    env: python
+    env: docker
     plan: starter
-    buildCommand: "./setup.sh && pip install -r requirements.txt"
+    dockerfilePath: ./Dockerfile
     startCommand: "python app.py"
-    envVars:
-      - key: PYTHON_VERSION
-        value: "3.9"
-    buildScript:
-      - name: Install ZBar dependencies
-        script: ./setup.sh
 
   - type: cron
     name: my-cron-job
     cronCommand: "python cron_job.py"
     schedule: "0 0 * * *"
-    env: python
-    plan: starter
-    buildCommand: "./setup.sh && pip install -r requirements.txt"
+    env: docker
+    dockerfilePath: ./Dockerfile
     startCommand: "python cron_job.py"
-    envVars:
-      - key: PYTHON_VERSION
-        value: "3.9"
