@@ -1,12 +1,3 @@
-Flask
-numpy
-opencv-python
-imutils
-requests
+flask
+pillow
 tqdm
-Pillow
-pytesseract
-qreader
-beautifulsoup4
-pyzbar
-zbar
