@@ -6,4 +6,3 @@ opencv-python-headless
 imutils
 requests
 beautifulsoup4
-qreader

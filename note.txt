@@ -1,0 +1,13 @@
+sudo apt-get install -y libgl1
+
+then
+
+sudo apt-get install libzbar0
+
+then
+
+pip install torch --no-cache-dir
+
+then
+
+pip install torch --no-cache-dir
