@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: your-app-name
-    env: docker
-    dockerfilePath: ./Dockerfile
-    plan: free
-    buildCommand: echo "No build command needed; using Dockerfile."
-    startCommand: ""
